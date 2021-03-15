@@ -21,30 +21,36 @@ const AddTask = ({onAdd}) => {
     const platform=['Facebook','Twitter']
     const township=['Tohan','Vijaipur']
     const [prefix,setPrefix]=useState(gender[0]);
-    const [name,setName]=useState();
-    const [addressLine1,setAddressLine1]=useState();
-    const [addressLine2,setAddressLine2]=useState();
-    const [addressLine3,setAddressLine3]=useState();
+    const [name,setName]=useState('');
+    const [addressLine1,setAddressLine1]=useState('');
+    const [addressLine2,setAddressLine2]=useState('');
+    const [addressLine3,setAddressLine3]=useState('');
     const [customerType,setCustomerType]=useState(customer[0]);
     const [leadSource,setLeadSource]=useState(platform[0]);
     const [city,setCity]=useState(township[0]);
-    const [county,setCounty]=useState();
-    const [postCode,setPostCode]=useState();
-    const [mobileNo,setMobileNo]=useState();
-    const [comments,setComments]=useState();
+    const [county,setCounty]=useState('');
+    const [postCode,setPostCode]=useState('');
+    const [mobileNo,setMobileNo]=useState('');
+    const [comments,setComments]=useState('');
 
     useEffect(()=>{
+        if(addressLine1.length>0){
         fetchAddress1()
+        }
         },[addressLine1])
 
     const onSubmit=(e)=>{
         e.preventDefault();
+        if(!name){
+            alert('Enter name')
+            return
+        }
         onAdd({prefix,name,addressLine1,addressLine2,addressLine3,customerType,leadSource,city,county,postCode,mobileNo,comments})
         setName('')
         setPrefix(gender[0])
         setAddressLine1('')
         setAddressLine2('')
-        setAddressLine3()
+        setAddressLine3('')
         setCustomerType(customer[0])
         setLeadSource(platform[0])
         setCity(township[0])
@@ -64,54 +70,22 @@ const AddTask = ({onAdd}) => {
             </select> <br/>
             <input type='text' value={name} placeholder='Full Name*' onChange={(e)=>{
                 const username=e.target.value;
-                if(username.length<1){
-                    alert('Enter proper Username');
-                }else{
                     setName(username)
-                }
             }}
-            onBlur={(e)=>{
-                const username=e.target.value;
-                if(username.length<1){
-                    alert('Enter proper Username');
-                }
-            }}/><br/>
+            /><br/>
             <input type='text' value={addressLine1} placeholder='Address Line1*' onChange={(e)=>{
-                if(e.target.value<1){
-                    alert('Enter address1')
-                }
                 setAddressLine1(e.target.value)
             }
             }
-            onBlur={(e)=>{
-                if(e.target.value<1){
-                    alert('Enter address1')
-                }
-            }
-            }/><br/>
+            /><br/>
             <input type='text' value={addressLine2} placeholder='Address Line2*' onChange={(e)=>{
-                if(e.target.value<1){
-                    alert('Enter address2')
-                }
                 setAddressLine2(e.target.value)}
             }
-            onBlur={(e)=>{
-                if(e.target.value<1){
-                    alert('Enter address2')
-                }
-             }} /><br/>
+             /><br/>
             <input type='text' value={addressLine3} placeholder='Address Line3*' onChange={(e)=>{
-                if(e.target.value){
-                    alert('Enter address3')
-                } 
                 setAddressLine3(e.target.value)}
             } 
-            onBlur={(e)=>{
-                if(e.target.value){
-                    alert('Enter address3')
-                } 
-                setAddressLine3(e.target.value)}
-            }/><br/>
+            /><br/>
             <select onChange={(e)=>setCustomerType(e.target.value)}>
             {customer.map((value)=>{
                   return <option value={value}>{value}</option>
@@ -128,54 +102,22 @@ const AddTask = ({onAdd}) => {
               })}
             </select><br/>
             <input type='text' value={county} placeholder='Country*' onChange={(e)=>{
-                if(e.target.value<1){
-                    alert('Enter Country')
-                }
                  setCounty(e.target.value)}
             }
-            onBlur={(e)=>{
-                if(e.target.value<1){
-                    alert('Enter Country')
-                }
-            }
-            }/><br/>
+            /><br/>
             <input type='text' value={postCode} placeholder='Post Code*' onChange={(e)=>{
-                if(e.target.value<1){
-                    alert('Enter postal address')
-                }
                 setPostCode(e.target.value)}
             }
-            onChange={(e)=>{
-                if(e.target.value<1){
-                    alert('Enter postal address')
-                }
-            }
-            }
+            
             /><br/>
             <input type='text' value={mobileNo} placeholder='Mobile Number*' onChange={(e)=>{
-                if(e.target.value<1 && e.target.value>10){
-                    alert('Enter valid mobile number')
-                }
                 setMobileNo(e.target.value)}
             }
-            onChange={(e)=>{
-                if(e.target.value<1 && e.target.value>10){
-                    alert('Enter valid mobile number')
-                }
-            }
-            }/><br/>
+            /><br/>
             <textarea placeholder="Comments*" value={comments} onChange={(e)=>{
-                if(e.target.value<1){
-                    alert('Enter valid comments')
-                }
                 setComments(e.target.value)}
             }
-            onChange={(e)=>{
-                if(e.target.value<1){
-                    alert('Enter valid comments')
-                }
-            }
-            }></textarea><br/>
+           ></textarea><br/>
             <input type="file" id="myFile" name="filename"></input><br/>
             <input type='submit' value='Save'/>
             </form>

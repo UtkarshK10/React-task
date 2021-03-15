@@ -9,9 +9,10 @@ function App() {
       data:task
     })
     const responseData=await res.data  
+    console.log(responseData)
      setTasks([...tasks,responseData]);
   }
-  
+
   return (
     <div className="App">
       <AddTask onAdd={addTask}/>
